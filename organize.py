@@ -32,33 +32,48 @@ def searchBook(title):
         
 def enterBook():
     with open('books', 'a') as f:
+        writer = csv.writer(f)
         title = input("Enter the title of the book: ")
-        f.write(title + '\n')
+        page = input("Enter the page you are on (optional): ")
+        if page != '':
+            writer.writerow([title, page])
+        else:
+            writer.writerow([title, 0])
+
+
 
 def delBook(title):
     current = []
+    # read in csv into a list excluding the sought title
     with open('books') as f:
-        for book in f:
-            if title not in book:
-                current.append([book])
+        reader = csv.reader(f)
+        for line in reader:
+            if title != line[0]:
+                current.append(line)
+    # write the list
     with open('books', 'w') as f:
         writer = csv.writer(f)
         writer.writerows(current)
 
+
 def readList():
     with open('books') as f:
-        for line in f:
-            print(line, end = '')
+        reader = csv.reader(f)
+        for line in reader:
+            print(line[0] + ' - ' + line[1])
+
 
 def main():
     choice = None
     while choice != 'q':
+        print()
         print("(e)nter a book into your list")
         print("(p)rint your book list")
         print("(s)earch for a title")
         print("(d)elete a title from your list")
         print("(q)uit")
-        choice = input()
+        choice = input("> ")
+        print()
         if choice == 'q':
             break
         elif choice == 'e':
