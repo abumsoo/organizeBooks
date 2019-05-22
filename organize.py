@@ -31,6 +31,7 @@ def searchBook(title):
             
         
 def enterBook():
+    # [ ] TODO: check against current book list so that duplicates aren't added
     with open('books', 'a') as f:
         writer = csv.writer(f)
         title = input("Enter the title of the book: ")
