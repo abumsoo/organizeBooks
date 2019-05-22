@@ -34,6 +34,10 @@ def enterBook():
         title = input("Enter the title of the book: ")
         f.write(title + '\n')
 
+def delBook():
+    with open('books', 'w') as f:
+        title = input("Enter the title of the book: ")
+
 def readList():
     with open('books') as f:
         for line in f:
